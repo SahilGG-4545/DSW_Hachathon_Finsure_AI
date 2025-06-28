@@ -1,15 +1,22 @@
-import streamlit as st, openai, os
+# app.py
+import streamlit as st
+from modules import health_check, mistake_sim, claim_confidence,coverage_gap
 
-st.write("🔑 Key Loaded:", bool(os.getenv("OPENAI_API_KEY")))
-openai.api_key = os.getenv("OPENAI_API_KEY")
+st.set_page_config(page_title="Financial Fitness Assistant", layout="wide")
+st.title("FinSure AI: Blending Financial Wellness & Insurance Clarity")
 
-if openai.api_key:
-    try:
-        resp = openai.ChatCompletion.create(
-            model="gpt-3.5-turbo",
-            messages=[{"role": "user", "content": "Hello"}],
-            max_tokens=10
-        )
-        st.success("✅ Success: " + resp["choices"][0]["message"]["content"])
-    except Exception as e:
-        st.error("❌ Error: " + str(e))
+option = st.sidebar.radio("Select Module", [
+    "1️⃣ Financial Health Check",
+    "2️⃣ coverage gap",
+    "3️⃣ Mistake Simulator",
+    "4️⃣ Insurance Claim Advisor"
+])
+
+if option == "1️⃣ Financial Health Check":
+    health_check.run()
+elif option == "2️⃣ coverage gap":
+    coverage_gap.run()
+elif option == "3️⃣ Mistake Simulator":
+    mistake_sim.run()
+elif option == "4️⃣ Insurance Claim Advisor":
+    claim_confidence.run()
