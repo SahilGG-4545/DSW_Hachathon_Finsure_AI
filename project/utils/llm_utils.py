@@ -3,13 +3,15 @@ import openai
 import os
 from dotenv import load_dotenv
 
-openai.api_key = os.getenv("OPENAI_API_KEY")
+# Load .env file in local development (ignored on Streamlit Cloud)
+load_dotenv()
 
-print("🔑 Currently loaded key:", openai.api_key[:12], "...", openai.api_key[-6:])
+# Read key from environment
+openai.api_key = os.getenv("OPENAI_API_KEY")
 
 def query_openai(prompt, system="You are a financial advisor."):
     response = openai.ChatCompletion.create(
-        model="gpt-4o-mini",  
+        model="gpt-4o",
         messages=[
             {"role": "system", "content": system},
             {"role": "user", "content": prompt}
