@@ -3,7 +3,7 @@ import openai
 import os
 from dotenv import load_dotenv
 
-openai.api_key = "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"
+openai.api_key = os.getenv("OPENAI_API_KEY")
 
 print("🔑 Currently loaded key:", openai.api_key[:12], "...", openai.api_key[-6:])
 
